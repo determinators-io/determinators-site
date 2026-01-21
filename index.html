@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Determinators</title>
+    <meta name="description" content="Determinators is deterministic plan-normalization middleware for agent workflows: JSON in  canonical plan or refusal out.">
+    <link rel="canonical" href="https://determinators.io/">
+    <meta name="robots" content="index,follow">
+
+    <meta property="og:title" content="Determinators">
+    <meta property="og:description" content="Determinators is deterministic plan-normalization middleware for agent workflows: JSON in  canonical plan or refusal out.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://determinators.io/">
+    <meta property="og:image" content="https://determinators.io/og.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Determinators">
+    <meta name="twitter:description" content="Determinators is deterministic plan-normalization middleware for agent workflows: JSON in  canonical plan or refusal out.">
+    <meta name="twitter:image" content="https://determinators.io/og.png">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#ffffff">
+    <style>
+      :root {
+        --black: #000000;
+        --white: #ffffff;
+        --gray-1: #f2f2f2;
+        --gray-2: #c8c8c8;
+        --gray-3: #7a7a7a;
+        --fg: #0b0b0b;
+        --line: #2a2a2a;
+        --accent: #000000;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+        background: var(--white);
+        color: var(--fg);
+      }
+
+      .page {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 64px 24px 96px;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 24px;
+        margin-bottom: 48px;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .wordmark {
+        font-size: 28px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .domain {
+        font-size: 14px;
+        color: var(--gray-3);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        gap: 32px;
+        align-items: start;
+        margin-bottom: 56px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+        margin: 0 0 16px;
+        line-height: 1.2;
+      }
+
+      .hero p {
+        margin: 0 0 16px;
+        color: var(--gray-3);
+      }
+
+      .intent-boundary {
+        border: 1px solid var(--line);
+        padding: 16px;
+        background: var(--gray-1);
+        margin-top: 24px;
+      }
+
+      .intent-boundary p {
+        margin: 0;
+        color: var(--black);
+      }
+
+      .panel {
+        border: 1px solid var(--line);
+        padding: 20px;
+        background: var(--gray-1);
+      }
+
+      .panel h2 {
+        margin: 0 0 12px;
+        font-size: 18px;
+      }
+
+      .panel ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .panel li {
+        margin: 0 0 10px;
+      }
+
+      .section {
+        margin: 48px 0;
+      }
+
+      .section h2 {
+        font-size: 20px;
+        margin-bottom: 16px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        padding: 16px;
+        background: var(--white);
+      }
+
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 16px;
+      }
+
+      .pricing {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .price {
+        border: 1px solid var(--black);
+        padding: 20px;
+        background: var(--gray-1);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .price strong {
+        font-size: 24px;
+      }
+
+      .price a {
+        display: inline-block;
+        padding: 8px 12px;
+        border: 1px solid var(--black);
+        color: var(--black);
+        text-decoration: none;
+        background: var(--white);
+      }
+
+      .price a:hover,
+      .price a:focus {
+        outline: 2px solid var(--black);
+        outline-offset: 2px;
+      }
+
+      footer {
+        border-top: 1px solid var(--black);
+        padding-top: 24px;
+        margin-top: 56px;
+        color: var(--gray-3);
+        font-size: 14px;
+        display: grid;
+        gap: 8px;
+      }
+
+      .note {
+        background: var(--fg);
+        color: var(--white);
+        padding: 12px 16px;
+        margin-top: 20px;
+      }
+
+      #pricing {
+        margin: 48px 0;
+      }
+
+      #pricing h2 {
+        font-size: 20px;
+        margin: 0 0 16px;
+      }
+
+      .monoBlock {
+        border: 1px solid var(--line);
+        background: var(--gray-1);
+        padding: 16px;
+        white-space: pre-wrap;
+        line-height: 1.5;
+      }
+
+      .small {
+        margin: 12px 0 16px;
+        color: var(--gray-3);
+        font-size: 14px;
+      }
+
+      #pricing a {
+        display: inline-block;
+        padding: 8px 12px;
+        border: 1px solid var(--line);
+        color: var(--fg);
+        text-decoration: none;
+        background: var(--white);
+      }
+
+      #pricing a:hover,
+      #pricing a:focus {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--fg);
+        text-decoration: none;
+      }
+
+      .btn.primary {
+        background: var(--fg);
+        color: #0b0b0b;
+        border-color: var(--fg);
+      }
+
+      .btn:hover {
+        border-color: var(--accent);
+      }
+
+      .btn.primary:hover {
+        filter: brightness(0.95);
+      }
+
+      @media (max-width: 900px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .grid,
+        .pricing {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div class="wordmark">Determinators</div>
+        <div class="domain">determinators.io (primary) | determinators.xyz (redirect)</div>
+      </header>
+
+      <section class="hero">
+        <div>
+          <h1>Determinators</h1>
+          <p>Determinators is deterministic plan-normalization middleware for agent workflows: JSON in  canonical plan or refusal out.</p>
+          <p>Deterministic, canonical, refusal-first, reproducible.</p>
+          <div class="intent-boundary">
+            <p>Operates only under a frozen Intent Object produced by an Intent Boundary Adapter; mutable intent is inadmissible.</p>
+          </div>
+        </div>
+        <div class="panel">
+          <h2>Public Surface</h2>
+          <ul>
+            <li>No accounts.</li>
+            <li>No analytics.</li>
+            <li>No cookies.</li>
+            <li>No tracking.</li>
+            <li>Contact: <a class="btn" href="mailto:contact@determinators.io">contact@determinators.io</a></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>What Determinators Does</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Plan Intake</h3>
+            <p>Deterministic intake with canonical outcomes.</p>
+          </div>
+          <div class="card">
+            <h3>Canonicalization</h3>
+            <p>Canonical plans that remain reproducible and replayable.</p>
+          </div>
+          <div class="card">
+            <h3>Refusal Output</h3>
+            <p>Refusal output only when canonical constraints fail.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="examples" style="margin-top:24px;">
+        <h2 style="font-size:14px; letter-spacing:0.4px; text-transform:uppercase; margin:0 0 10px;">
+          Deterministic examples
+        </h2>
+
+        <div style="display:grid; gap:12px; grid-template-columns:1fr;">
+          <div style="border:1px solid #2a2a2a; background:#121212; padding:14px;">
+            <div style="margin:0 0 8px; color:#b7b7b7;">Example A  admissible (plan)</div>
+            <pre style="margin:0; white-space:pre-wrap; word-break:break-word; color:#f2f2f2;">INPUT (JSON)
+{"intent_object":"frozen","plan":"write a report","constraints":["no web","plain text"]}
+
+OUTPUT
+CANONICAL OUTPUT:
+1) Draft outline
+2) Write sections
+3) Final pass</pre>
+          </div>
+
+          <div style="border:1px solid #2a2a2a; background:#121212; padding:14px;">
+            <div style="margin:0 0 8px; color:#b7b7b7;">Example B  inadmissible (refusal)</div>
+            <pre style="margin:0; white-space:pre-wrap; word-break:break-word; color:#f2f2f2;">INPUT (JSON)
+{"intent_object":"mutable","plan":"keep changing goals until it works"}
+
+OUTPUT
+REFUSAL:
+Mutable intent is inadmissible. Provide a frozen Intent Object.</pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Deterministic Contract</h2>
+        <p>deterministic plan normalization · refusal when inadmissible · replayable trace</p>
+        <div class="grid">
+          <div class="card">
+            <h3>Stable Inputs</h3>
+            <p>Deterministic and canonical in every pass.</p>
+          </div>
+          <div class="card">
+            <h3>Strict Boundaries</h3>
+            <p>Deterministic boundaries with refusal-first enforcement.</p>
+          </div>
+          <div class="card">
+            <h3>Predictable Outputs</h3>
+            <p>Canonical plan or refusal, reproducible by design.</p>
+          </div>
+        </div>
+        <div class="note">Deterministic, canonical, refusal-first, replayable.</div>
+      </section>
+
+      <section id="pricing">
+        <h2>Lifetime pricing</h2>
+        <div class="monoBlock">First 1,000 lifetime licenses:  $99
+Next 1,000 lifetime licenses:   $199
+Thereafter (2,001+):            $499</div>
+        <p class="small">Lifetime only. No subscriptions.</p>
+        <p class="small">Checkout shows the currently active tier.</p>
+        <a class="btn primary" href="https://YOURSTORE.lemonsqueezy.com/checkout/buy/VARIANT_ID">Buy lifetime</a>
+      </section>
+
+      <footer>
+        <div>Primary domain: determinators.io. determinators.xyz redirects only.</div>
+        <div>Determinators ships as a static public surface. No accounts, no analytics, no cookies, no tracking.</div>
+        <div>Contact: <a class="btn" href="mailto:contact@determinators.io">contact@determinators.io</a></div>
+      </footer>
+    </div>
+  </body>
+</html>
