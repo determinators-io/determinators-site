@@ -1,0 +1,14 @@
+.gitattributes
+.gitignore
+apple-touch-icon.png
+favicon-16.png
+favicon-32.png
+favicon.svg
+index.html
+logo.png
+og.png
+publish_release.ps1
+README.md
+robots.txt
+site.webmanifest
+sitemap.xml
