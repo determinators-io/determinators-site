@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+﻿$ErrorActionPreference = "Stop"
 
 Write-Host "== publish_release.ps1 (determinators-site) =="
 
@@ -21,8 +21,10 @@ if ($missing.Count -gt 0) {
 }
 Write-Host "OK: required files present."
 
-# 2) Locked sentence (must be verbatim, including →)
-$locked = "Determinators is deterministic plan-normalization middleware for agent workflows: JSON in → canonical plan or refusal out."
+# 2) Locked sentence (encoding-proof arrow)
+$arrow  = [char]0x2192
+$locked = "Determinators is deterministic plan-normalization middleware for agent workflows: JSON in $arrow canonical plan or refusal out."
+
 $indexPath = Join-Path $PSScriptRoot "index.html"
 $index = Get-Content -Raw -Encoding UTF8 $indexPath
 
