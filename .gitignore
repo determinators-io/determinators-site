@@ -1,2 +1,14 @@
 ﻿.DS_Store
 Thumbs.db
+
+# local junk
+exports/
+
+
+# local junk
+*.zip
+
+
+# local junk
+archive/gates/
+

@@ -1,6 +1,7 @@
 .gitattributes
 .gitignore
 apple-touch-icon.png
+docs/snapshots/REPO_TREE.md
 favicon-16.png
 favicon-32.png
 favicon.svg
