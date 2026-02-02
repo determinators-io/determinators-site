@@ -13,14 +13,5 @@ This document records a structural normalization across all repositories.
 - determinators-site uses a site-specific publish gate
 - Repos are intentionally NOT merged
 
-## What did NOT change
-- Lane firewalls remain intact
-- No core math, proofs, or invariants were modified
-- No release advancement occurred
-
 ## Authority
-This file is informational only.
-Authoritative behavior is enforced by:
-- AGENTS.md
-- RUNBOOK.md
-- mission_control.ps1
+Informational only. Enforced by AGENTS.md / RUNBOOK.md / mission_control.ps1.
