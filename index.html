@@ -388,8 +388,52 @@ Thereafter (2,001+):            $499</div>
         <div>Contact: <a class="btn" href="mailto:contact@determinators.io">contact@determinators.io</a></div>
       </footer>
     </div>
-  </body>
+  <section id="contract" style="margin-top:24px;">
+  <h2 style="font-size:14px; letter-spacing:0.4px; text-transform:uppercase; margin:0 0 10px;">
+    Behavior, not promises
+  </h2>
+
+  <p style="margin:0 0 10px; color:#c8c8c8;">
+    Same input ⇒ same output (or same refusal).
+  </p>
+
+  <p style="margin:0 0 12px; color:#c8c8c8;">
+    Operates only under a frozen Intent Object produced by an Intent Boundary Adapter; mutable intent is inadmissible.
+  </p>
+</section>
+
+<section id="examples" style="margin-top:16px;">
+  <h2 style="font-size:14px; letter-spacing:0.4px; text-transform:uppercase; margin:0 0 10px;">
+    Deterministic examples
+  </h2>
+
+  <div style="display:grid; gap:12px; grid-template-columns:1fr;">
+    <div style="border:1px solid #2a2a2a; background:#121212; padding:14px;">
+      <div style="margin:0 0 8px; color:#b7b7b7;">Example A — admissible (canonical output)</div>
+      <pre style="margin:0; white-space:pre-wrap; word-break:break-word; color:#f2f2f2;">INPUT (JSON)
+{"intent_object":"frozen","plan":"write a report","constraints":["no web","plain text"],"notes":["A","A","B"]}
+
+OUTPUT
+CANONICAL PLAN:
+1) Draft outline
+2) Write sections
+3) Final pass</pre>
+    </div>
+
+    <div style="border:1px solid #2a2a2a; background:#121212; padding:14px;">
+      <div style="margin:0 0 8px; color:#b7b7b7;">Example B — inadmissible (refusal)</div>
+      <pre style="margin:0; white-space:pre-wrap; word-break:break-word; color:#f2f2f2;">INPUT (JSON)
+{"intent_object":"mutable","plan":"keep changing goals until it works"}
+
+OUTPUT
+REFUSAL:
+Mutable intent is inadmissible. Provide a frozen Intent Object.</pre>
+    </div>
+  </div>
+</section>
+</body>
 </html>
+
 
 
 
